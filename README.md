@@ -1,87 +1,57 @@
-![Logo](https://github.com/qwc-services/qwc-docker/blob/master/volumes/qwc2/assets/img/qwc-logo.svg?raw=true) Docker containers for QWC Services
-==================================
+# QGIS Demo
 
-The QWC Services are a collection of microservices enhancing the functionality of the [QGIS Web Client](https://github.com/qgis/qwc2), including:
+This is a fork repository from QGIS for demonstration and development purposes.
 
-- Authentication and permission control
-- Editing
-- Fulltext search
-- Permalinks/bookmarks
-- ...
+## Overview
 
-This repository contains a sample setup for running QWC services with docker.
+This repository contains a QGIS Web Client (QWC) Docker deployment for GIS services and applications.
 
-Homepage
---------
+## Server Configuration
 
-You can find the homepage at [qwc.app](https://qwc.app).
+### Network Details
 
-Documentation
--------------
+- **IP Address**: 192.168.1.229/24
+- **Server Name**: qgis
+- **Administrator**: rattanak
 
-The documentation is available at [qwc-services.github.io](https://qwc-services.github.io/).
+### Server Credentials
 
-Quick start
------------
+- **Username**: rattanak
+- **Password**: Hello@QGIS
 
-See [qwc-services.github.io/master/QuickStart/](https://qwc-services.github.io/master/QuickStart/).
+## QGIS Web Client Access
 
-Versioning
-----------
+### Docker Deployment (qwc-docker)
 
-Since February 2023 a new long-term-support branch of QWC2 and its services has been introduced. The respective Docker images are tagged as `vYYYY.x-lts` (i.e. `v2023.0-lts`). This branch will receive bugfix updates for approximately one year. The sample `docker-compose-example.yml` references these images.
+- **Web URL**: http://192.168.1.229:8088
+- **Web Username**: admin
+- **Web Password**: Hello@QGIS
 
-The latest versions of QWC2 and its services is available as before, tagged as `vYYYY-MM-DD`.
+## Getting Started
 
-Health checks for Kubernetes
-----------------------------
+This deployment includes:
 
-Health checks are a simple way to let the system know if an instance of the app is working or not working. If an instance of the app is not working, then other services should not access it or send a request to it. Instead, requests should be sent to another instance of the app that is ready, or retried at a later time. The system should also bring the app back to a healthy state.
+- QGIS Server with Docker containerization
+- QWC2 Web Client interface
+- PostgreSQL/PostGIS database backend
+- Nginx API Gateway
+- Demo data and configurations
 
-### Readyness:
+For detailed setup and configuration instructions, refer to the specific configuration files in the repository.
 
-Readiness probes are designed to let Kubernetes know when the app is ready to serve traffic. Kubernetes makes sure the readiness probe passes before allowing a service to send traffic to the pod. If a readiness probe starts to fail, Kubernetes stops sending traffic to the pod until it passes.
+## Technologies
 
-**Check is available at: `/ready`**
+- **QGIS Server**: Backend GIS processing
+- **Docker**: Container orchestration
+- **PostgreSQL/PostGIS**: Spatial database
+- **Nginx**: API Gateway and reverse proxy
+- **QWC2**: Web mapping client
 
-Example check:
+## License
 
-* Return ok, if web service is initialized and running
+See [LICENSE](LICENSE) file for details.
 
-### Liveness:
+## Usfull link
 
-**Check is available at: `/healthz`**
-
-Liveness probes let Kubernetes know if the app is alive or dead. If the app is alive, then Kubernetes leaves it alone. If the app is dead, Kubernetes removes the Pod and starts a new one to replace it.
-
-Example checks:
-
-* Check database connection (Example service: `qwc-admin-gui`)
-* Check if all data files are available and readable (Example service: `qwc-elevation-service`)
-
-SELinux
--------
-
-If you have SELinux enabled, you will need to sandbox certain files and ports to allow the Docker containers access. You can run `sudo scripts/set_permissions.sh QWC_UID QWC_GID`
-to do this. Please ensure that the `QWC_UID` and `QWC_GID` in the script match the `SERVICE_UID` and `SERVICE_GID` set in the docker-compose file.
-
-
-Development
------------
-
-Create a QWC services dir:
-
-    mkdir qwc-services
-    cd qwc-services/
-
-Clone the desired service, i.e. the `qwc-config-service`:
-
-    git clone https://github.com/qwc-services/qwc-config-service.git
-
-Configure `docker-compose.yml` to build a local image:
-
-    qwc-config-service:
-      # image: docker.io/sourcepole/qwc-config-generator:latest-lts
-      build:
-        context: ./qwc-services/qwc-config-generator
-      ...
+https://docs.qwc.app/master/QuickStart/
+POSTGRES_PASSWORD: 'Hello@QGISPSS'
